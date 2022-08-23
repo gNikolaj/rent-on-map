@@ -1,6 +1,6 @@
 import Header from "../header/Header";
 import LeftMenu from "../left-menu/LeftMenu";
-import Map from "../map/Map";
+import Map, {MODES} from "../map/Map";
 import AdsList from "../ads-list/AdsList";
 
 import './App.css';
@@ -19,6 +19,8 @@ const libraries = ['places'];
 const App = () => {
 
     const [center, setCenter] = useState(defaultCenter);
+    const [mode, setMode] = useState(MODES.MOVE);
+    const [markers, setMarkers] = useState([]);
 
     const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
@@ -33,13 +35,32 @@ const App = () => {
         [],
     );
 
+    const toggleMode = useCallback(() => {
+        switch (mode) {
+            case MODES.MOVE: setMode(MODES.SET_MARKER);
+            break;
+            case MODES.SET_MARKER: setMode(MODES.MOVE);
+            break;
+            default: setMode(MODES.MOVE);
+        }
+        console.log(mode);
+    }, [mode]);
+
+    const onMarkerAdd = useCallback((coordinates) => {
+        setMarkers([...markers, coordinates])
+    }, [markers]);
+
+    // const clearMarkers = useCallback(() => {
+    //     setMarkers([]);
+    // }, []);
+
     return (
         <div className="App">
             <Header isLoaded={isLoaded} onSelect={onPlaceSelect}/>
             <div className='main-content'>
                 <LeftMenu/>
-                {isLoaded ? <Map center={center}/> : <h2>Loading</h2>}
-                <AdsList/>
+                {isLoaded ? <Map center={center} mode={mode} markers={markers} onMarkerAdd={onMarkerAdd}/> : <h2>Loading</h2>}
+                <AdsList toggleMode={toggleMode}/>
             </div>
         </div>
     );
