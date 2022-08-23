@@ -8,11 +8,6 @@ const containerStyle = {
     height: '100%'
 };
 
-const center = {
-    lat: 48.5132,
-    lng: 32.2597
-};
-
 const  defaultOptions = {
     panControl: true,
     zoomControl: true,
@@ -28,7 +23,7 @@ const  defaultOptions = {
     styles: defaultTheme
 }
 
-const Map = () => {
+const Map = ({center}) => {
 
     const mapRef = React.useRef(undefined);
 
