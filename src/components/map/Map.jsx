@@ -15,7 +15,6 @@ export const MODES = {
     SET_MARKER: 1
 }
 
-
 const defaultOptions = {
     panControl: true,
     zoomControl: true,
