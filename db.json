@@ -1,0 +1,44 @@
+{
+  "places": [
+    {
+      "id": 1,
+      "title": "Small flat",
+      "price": "8000",
+      "address": "St.Patrik 400",
+      "lat": 48.67677951646385,
+      "lng": 32.27482765884398
+    },
+    {
+      "title": "Big flat",
+      "price": "14000",
+      "address": "Close to metro",
+      "lat": 50.5968586064038,
+      "lng": 29.47391832266263,
+      "id": 2
+    },
+    {
+      "title": "One room",
+      "price": "3500",
+      "address": "Barnikova 46",
+      "lat": 50.5909353336805,
+      "lng": 34.157005712472845,
+      "id": 3
+    },
+    {
+      "title": "Big aparts",
+      "price": "12000",
+      "address": "Gujuina 2/e",
+      "lat": 48.370109282482325,
+      "lng": 36.152142487403864,
+      "id": 4
+    },
+    {
+      "title": "Normal size flat",
+      "price": "9000",
+      "address": "Shevchenko 46",
+      "lat": 48.47014776192817,
+      "lng": 29.651303443810562,
+      "id": 5
+    }
+  ]
+}
