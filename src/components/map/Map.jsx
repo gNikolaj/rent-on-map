@@ -31,8 +31,7 @@ const defaultOptions = {
     styles: defaultTheme
 }
 
-const Map = ({center, mode, markers, onMarkerAdd}) => {
-
+const Map = ({center, mode, places, onMarkerAdd, onChoosePlace}) => {
     const mapRef = React.useRef(undefined);
 
     const onLoad = React.useCallback(function callback(map) {
@@ -63,8 +62,12 @@ const Map = ({center, mode, markers, onMarkerAdd}) => {
                 options={defaultOptions}
             >
                 <CurrentLocationMarker position={center}/>
-                {markers.map((pos) => {
-                    return <CustomMarker position={pos}/>
+                {places.map(item => {
+                    const pos = {
+                        lat: item.lat,
+                        lng: item.lng
+                    };
+                    return <CustomMarker position={pos} adInMarker={item} onChoosePlace={onChoosePlace} key={item.id}/>
                 })}
             </GoogleMap>
         </div>

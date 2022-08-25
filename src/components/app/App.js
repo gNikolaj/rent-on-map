@@ -1,67 +1,80 @@
-import Header from "../header/Header";
-import LeftMenu from "../left-menu/LeftMenu";
-import Map, {MODES} from "../map/Map";
+import {useJsApiLoader} from "@react-google-maps/api";
+import React, {useCallback, useEffect, useState} from "react";
+
+import Modal from "../modal-window/Modal";
 import AdsList from "../ads-list/AdsList";
 
+import Map, {MODES} from "../map/Map";
+import {getAds, postAd} from "../../api";
+
+import {API_KEY, defaultCenter, libraries} from "../../utils";
+
 import './App.css';
-import {useJsApiLoader} from "@react-google-maps/api";
-import {useCallback, useState} from "react";
-
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-const defaultCenter = {
-    lat: 48.5132,
-    lng: 32.2597
-};
-
-const libraries = ['places'];
+import SearchInput from "../search-input/SearchInput";
 
 const App = () => {
-
     const [center, setCenter] = useState(defaultCenter);
     const [mode, setMode] = useState(MODES.MOVE);
-    const [markers, setMarkers] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [places, setPlaces] = useState([]);
+    const [newMarker, setNewMarker] = useState({});
+    const [selectedPlace, setSelectedPlace] = useState(null);
 
     const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: API_KEY,
         libraries
     });
-    
-    const onPlaceSelect = useCallback(
-        (coordinates) => {
-            setCenter(coordinates);
-        },
-        [],
-    );
+
+    const onPlaceSelect = (coordinates) => {
+        setCenter(coordinates);
+    };
 
     const toggleMode = useCallback(() => {
         switch (mode) {
-            case MODES.MOVE: setMode(MODES.SET_MARKER);
-            break;
-            case MODES.SET_MARKER: setMode(MODES.MOVE);
-            break;
-            default: setMode(MODES.MOVE);
+            case MODES.MOVE:
+                setMode(MODES.SET_MARKER);
+                break;
+            case MODES.SET_MARKER:
+                setMode(MODES.MOVE);
+                break;
+            default:
+                setMode(MODES.MOVE);
         }
-        console.log(mode);
     }, [mode]);
 
-    const onMarkerAdd = useCallback((coordinates) => {
-        setMarkers([...markers, coordinates])
-    }, [markers]);
+    const onMarkerAdd = (coordinates) => {
+        setNewMarker(coordinates);
+        setShowModal(true);
+        setMode(MODES.MOVE);
+    };
 
-    // const clearMarkers = useCallback(() => {
-    //     setMarkers([]);
-    // }, []);
+    const addProduct = (product) => {
+        postAd(product).then(() => {
+            getAds().then((data) => {
+                setPlaces(data);
+            });
+        });
+    };
+
+    const onChoosePlace = (place) => {
+        setSelectedPlace(place);
+    }
+
+    useEffect(() => {
+        getAds().then((data) => {
+            setPlaces(data);
+        });
+    }, []);
 
     return (
         <div className="App">
-            <Header isLoaded={isLoaded} onSelect={onPlaceSelect}/>
-            <div className='main-content'>
-                <LeftMenu/>
-                {isLoaded ? <Map center={center} mode={mode} markers={markers} onMarkerAdd={onMarkerAdd}/> : <h2>Loading</h2>}
-                <AdsList toggleMode={toggleMode}/>
-            </div>
+            {showModal && <Modal addProduct={addProduct} setShowModal={setShowModal} newMarker={newMarker}/>}
+            {isLoaded ? <Map center={center} mode={mode} places={places} onMarkerAdd={onMarkerAdd}
+                             onChoosePlace={onChoosePlace}/> :
+                <h2>Loading</h2>}
+            <SearchInput isLoaded={isLoaded} onSelect={onPlaceSelect}/>
+            <AdsList places={places} selectedPlace={selectedPlace} toggleMode={toggleMode}/>
         </div>
     );
 }

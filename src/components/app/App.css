@@ -79,10 +79,27 @@ select {
 
 /* /////////////////////////////////////////////////////////////////////////////// */
 
-.main-content {
-    background: #A5DEE5;
-    width: 100vw;
-    height: 94vh;
+.App {
+    height: 100vh;
     display: flex;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: none;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
 }
 

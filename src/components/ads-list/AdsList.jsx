@@ -1,15 +1,25 @@
-import React from 'react';
-import './AdsList.css';
 import AdComponent from "../ad-component/AdComponent";
 
-const AdsList = ({toggleMode}) => {
+import {Button} from "@mui/material";
+
+import './AdsList.css';
+
+const AdsList = ({places, selectedPlace, toggleMode}) => {
+
     return (
         <div className='ad-list'>
-            <button className='add-button' onClick={toggleMode}>Add</button>
-            <button className='add-button' onClick={toggleMode}>Delete</button>
-            <AdComponent/>
-            <AdComponent/>
-            <AdComponent/>
+            <div className='add-button'>
+                <Button variant="contained" onClick={toggleMode}>Add Marker</Button>
+            </div>
+            {places.map((item) => {
+                return <AdComponent
+                    title={item.title}
+                    price={item.price}
+                    address={item.address}
+                    isSelected={selectedPlace && selectedPlace.id === item.id}
+                    key={item.id}
+                />
+            })}
         </div>
     );
 };

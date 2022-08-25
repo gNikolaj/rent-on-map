@@ -1,6 +1,7 @@
 .container {
-    position: relative;
-    margin: auto;
+    position: absolute;
+    margin-top: 4px;
+    margin-left: 50vw;
     width: 15vw;
 }
 
@@ -9,30 +10,32 @@
 }
 
 .input {
-    width: 100%;
+    width: 300px;
     padding: 0.8vh 1vh;
-    border: 2px solid rgb(34, 34, 34);
+    border: 2px solid #B7D3DF;
+    border-radius: 4px;
     font-size: 1rem;
     font-weight: 700;
+    transform: translateX(-150px);
 }
 
 .input:focus {
-    border-color: blue;
+    border-color: #8FBDD3;
     outline: none;
 }
 
 .suggestions {
     position: absolute;
-    top: 0;
-    transform: translateY(39px);
-    background: #FFF;
-    border: 2px solid rgb(34, 34, 34);
-    width: 15vw;
+    background: #FFFFFF;
+    border: 1.5px solid #8FBDD3;
+    border-radius: 4px;
+    width: 300px;
     z-index: 10;
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: left;
+    transform: translateX(-150px);
 }
 
 .listItem {
@@ -41,5 +44,5 @@
 }
 
 .listItem:hover {
-    background: #efefef;
+    background: #F6F6F6;
 }

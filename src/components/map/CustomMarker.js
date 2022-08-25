@@ -1,9 +1,10 @@
 import React from 'react';
 import {MarkerF} from "@react-google-maps/api";
+import icon from '../../assets/img/placeMarker.png';
 
-const CustomMarker = ({position}) => {
+const CustomMarker = ({position, adInMarker, onChoosePlace}) => {
     return (
-        <MarkerF position={position}/>
+        <MarkerF position={position} icon={icon} onClick={() => {onChoosePlace(adInMarker)}}/>
     );
 };
 

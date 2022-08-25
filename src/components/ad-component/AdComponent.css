@@ -1,8 +1,25 @@
 .ad-right-component {
     padding: 5px;
-    border: 1px solid salmon;
-    margin: 10px auto;
-    width: 10vw;
-    height: 11vw;
+    margin: 7px auto;
+    width: 12vw;
     text-align: center;
+    background: #B1E1FF;
+    box-shadow: 1px 4px 8px rgba(27, 38, 44, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    border-radius: 4px;
+}
+
+.ad-right-component-border {
+    border: 2px solid #A6D0E4;
+    border-radius: 10px;
+}
+
+.ad-right-component-border-highlighted {
+    border: 3px solid #CCF2F4;
+    border-radius: 10px;
+    background: #DEEDF0;
 }
