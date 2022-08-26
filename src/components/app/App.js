@@ -7,7 +7,7 @@ import AdsList from "../ads-list/AdsList";
 import Map, {MODES} from "../map/Map";
 import {getAds, postAd} from "../../api";
 
-import {API_KEY, defaultCenter, libraries} from "../../utils";
+import { defaultCenter, libraries} from "../../utils";
 
 import './App.css';
 import SearchInput from "../search-input/SearchInput";
@@ -22,7 +22,7 @@ const App = () => {
 
     const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: API_KEY,
+        googleMapsApiKey: 'AIzaSyAyJnDs_s80VtU0DPKAr8bNfDahtQx65qU',
         libraries
     });
 
