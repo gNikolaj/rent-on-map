@@ -1,1 +1,1 @@
-web: node db.json
+web: node server.js
